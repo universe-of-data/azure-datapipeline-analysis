@@ -1,0 +1,128 @@
+{
+	"name": "Mainpipeline_ActualOne_2",
+	"properties": {
+		"activities": [
+			{
+				"name": "setInputFileActivity",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "GenerateFileActivity",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "inputFilePathVariable",
+					"value": {
+						"value": "@activity('GenerateFileActivity').output.runOutput",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "GenerateFileActivity",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/keerthanaakkula@gmail.com/LogicTransformation.py"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "CopyActivity",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "setInputFileActivity",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowCopyCommand": true
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "AzureDataLakeStorage1",
+							"type": "LinkedServiceReference"
+						},
+						"path": "destinationcontainer"
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"FilePath": {
+								"value": "@pipeline().parameters.inputFilePath\n",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSynapseAnalyticsTable1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"inputFilePath": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"inputFilePathVariable": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-06-13T18:49:24Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

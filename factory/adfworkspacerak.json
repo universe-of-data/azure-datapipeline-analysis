@@ -1,0 +1,9 @@
+{
+	"name": "adfworkspacerak",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6fa8c2da-0b94-45e8-9fed-bdbf6cc89d01",
+		"tenantId": "cc876379-1061-49ab-964b-7e5d840d62a1"
+	}
+}

@@ -1,0 +1,81 @@
+{
+	"name": "AzureSynapseAnalyticsTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSynapseAnalytics1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "X",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Y",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "month",
+				"type": "varchar"
+			},
+			{
+				"name": "day",
+				"type": "varchar"
+			},
+			{
+				"name": "FFMC",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "DMC",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "DC",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "ISI",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "temp",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "RH",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "wind",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "rain",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "area",
+				"type": "float",
+				"precision": 15
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ForestFireData_Final"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
