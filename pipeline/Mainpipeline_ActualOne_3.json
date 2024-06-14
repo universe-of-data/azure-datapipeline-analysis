@@ -211,6 +211,23 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Waitactivity",
+				"description": "Adding add to test the feature branch",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
 			}
 		],
 		"parameters": {
