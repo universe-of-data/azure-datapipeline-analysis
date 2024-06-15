@@ -53,7 +53,7 @@
 				}
 			},
 			{
-				"name": "Copy data1",
+				"name": "CopyToFinal",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -72,8 +72,25 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
 					"enableStaging": false
-				}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"parameters": {
