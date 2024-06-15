@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "transformed_forestfire_data.csv",
+				"fileName": "@split(variables('outputFilePath'), '/')[length(split(variables('outputFilePath'), '/'))-1]",
 				"folderPath": "@split(split(variables('outputFilePath'), '@')[1], '/')[1]",
 				"fileSystem": {
 					"value": "@split(variables('outputFilePath'), '@')[0]",

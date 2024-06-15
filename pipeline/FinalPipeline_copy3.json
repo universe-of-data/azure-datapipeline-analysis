@@ -86,11 +86,6 @@
 				]
 			}
 		],
-		"parameters": {
-			"inputfilepath": {
-				"type": "string"
-			}
-		},
 		"variables": {
 			"setoutputvariable": {
 				"type": "String"
