@@ -45,10 +45,6 @@
 								"value": "@split(split(variables('setoutputvariable'), '@')[1], '/')[1]",
 								"type": "Expression"
 							},
-							"wildcardFileName": {
-								"value": "@split(variables('setoutputvariable'), '/')[length(split(variables('outputFilePath'), '/'))-1]",
-								"type": "Expression"
-							},
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
