@@ -90,13 +90,7 @@
 						},
 						"path": "destinationcontainer"
 					}
-				},
-				"outputs": [
-					{
-						"referenceName": "AzureSynapseAnalyticsTable1",
-						"type": "DatasetReference"
-					}
-				]
+				}
 			}
 		],
 		"parameters": {
