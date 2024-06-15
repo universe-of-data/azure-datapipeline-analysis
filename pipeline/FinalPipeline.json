@@ -27,11 +27,33 @@
 					"referenceName": "AzureDatabricks1",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "NotebookTask",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
 			}
 		],
 		"parameters": {
 			"inputfilepath": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"setoutputvariable": {
+				"type": "String"
 			}
 		},
 		"annotations": []
