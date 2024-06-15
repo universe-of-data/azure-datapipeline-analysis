@@ -9,16 +9,7 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@split(variables('outputFilePath'), '/')[length(split(variables('outputFilePath'), '/'))-1]",
-					"type": "Expression"
-				},
-				"folderPath": {
-					"value": "@split(split(variables('outputFilePath'), '@')[1], '/')[1]",
-					"type": "Expression"
-				},
-				"fileSystem": "destinationcontainer"
+				"type": "AzureBlobFSLocation"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
