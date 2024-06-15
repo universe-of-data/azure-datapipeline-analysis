@@ -20,7 +20,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "setoutputvariable",
-					"value": "abfss://destinationcontainer@adlsfinalstorage.dfs.core.windows.net/destinationdirectory/transformed_forestfire_data.csv"
+					"value": ""
 				}
 			},
 			{
@@ -110,7 +110,13 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/keerthanaakkula@gmail.com/LogicTransformation.py"
+					"notebookPath": "/Users/keerthanaakkula@gmail.com/LogicTransformation.py",
+					"baseParameters": {
+						"csvpath": {
+							"value": "@pipeline().parameters.inputfile",
+							"type": "Expression"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks1",
@@ -118,6 +124,11 @@
 				}
 			}
 		],
+		"parameters": {
+			"inputfile": {
+				"type": "string"
+			}
+		},
 		"variables": {
 			"setoutputvariable": {
 				"type": "String"
