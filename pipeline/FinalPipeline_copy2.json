@@ -78,7 +78,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"filePath": {
-								"value": "@variables('setoutputvariable')",
+								"value": "@variables('outputFilePath')",
 								"type": "Expression"
 							}
 						}
