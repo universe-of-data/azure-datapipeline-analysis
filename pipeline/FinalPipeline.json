@@ -47,7 +47,7 @@
 				"typeProperties": {
 					"variableName": "setoutputvariable",
 					"value": {
-						"value": "@activity('NotebookTask').output.pipelineReturnValue",
+						"value": "@activity('NotebookTask').output.runOutput",
 						"type": "Expression"
 					}
 				}
