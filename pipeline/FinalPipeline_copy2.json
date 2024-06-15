@@ -13,7 +13,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "setoutputvariable",
-					"value": "abfs://sourcecontainer@adlsfinalstorage.dfs.core.windows.net/sourcedirectory/forestfires.csv"
+					"value": "abfss://destinationcontainer@adlsfinalstorage.dfs.core.windows.net/destinationdirectory/transformed_forestfire_data.csv"
 				}
 			},
 			{
