@@ -15,10 +15,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().filePath",
-					"type": "Expression"
-				},
+				"fileName": "transformed_forestfire_data.csv",
+				"folderPath": "destinationdirectory",
 				"fileSystem": "destinationcontainer"
 			},
 			"columnDelimiter": ",",

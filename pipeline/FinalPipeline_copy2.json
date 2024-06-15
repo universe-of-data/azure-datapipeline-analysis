@@ -3,33 +3,9 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "SetOutputVariable",
-				"type": "SetVariable",
-				"dependsOn": [],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "outputFilePath",
-					"value": {
-						"value": "abfss://destinationcontainer@adlsfinalstorage.dfs.core.windows.net/destinationdirectory/transformed_forestfire_data.csv",
-						"type": "Expression"
-					}
-				}
-			},
-			{
 				"name": "CopyToFinal",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "SetOutputVariable",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -75,13 +51,7 @@
 				"inputs": [
 					{
 						"referenceName": "SourceDataset",
-						"type": "DatasetReference",
-						"parameters": {
-							"filePath": {
-								"value": "@variables('outputFilePath')",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
