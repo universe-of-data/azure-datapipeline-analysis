@@ -11,11 +11,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "@split(variables('outputFilePath'), '/')[length(split(variables('outputFilePath'), '/'))-1]",
-				"folderPath": "@split(split(variables('outputFilePath'), '@')[1], '/')[1]",
-				"fileSystem": {
-					"value": "@split(variables('setoutputvariable'), '@')[0]",
-					"type": "Expression"
-				}
+				"folderPath": "@split(split(variables('outputFilePath'), '@')[1], '/')[1]"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
