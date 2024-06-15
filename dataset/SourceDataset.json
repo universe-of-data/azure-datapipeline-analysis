@@ -13,7 +13,7 @@
 				"fileName": "@split(variables('outputFilePath'), '/')[length(split(variables('outputFilePath'), '/'))-1]",
 				"folderPath": "@split(split(variables('outputFilePath'), '@')[1], '/')[1]",
 				"fileSystem": {
-					"value": "@split(variables('outputFilePath'), '@')[0]",
+					"value": "@split(variables('setoutputvariable'), '@')[0]",
 					"type": "Expression"
 				}
 			},

@@ -108,13 +108,7 @@
 				"inputs": [
 					{
 						"referenceName": "SourceDataset",
-						"type": "DatasetReference",
-						"parameters": {
-							"filePath": {
-								"value": "@variables('setoutputvariable')",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
