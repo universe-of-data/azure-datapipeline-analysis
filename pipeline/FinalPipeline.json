@@ -78,10 +78,10 @@
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
 							"wildcardFolderPath": {
-								"value": "@split(split(variables('outputFilePath'), '@')[1], '/')[1]",
+								"value": "@split(split(variables('setoutputvariable'), '@')[1], '/')[1]",
 								"type": "Expression"
 							},
-							"wildcardFileName": "@split(variables('outputFilePath'), '/')[length(split(variables('outputFilePath'), '/'))-1]",
+							"wildcardFileName": "@split(variables('setoutputvariable'), '/')[length(split(variables('outputFilePath'), '/'))-1]",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
