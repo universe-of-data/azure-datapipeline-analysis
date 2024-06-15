@@ -15,7 +15,13 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/keerthanaakkula@gmail.com/LogicTransformation.py"
+					"notebookPath": "/Users/keerthanaakkula@gmail.com/LogicTransformation.py",
+					"baseParameters": {
+						"csvpath": {
+							"value": "@pipeline().parameters.inputfilepath",
+							"type": "Expression"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks1",
