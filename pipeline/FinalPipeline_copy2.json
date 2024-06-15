@@ -46,7 +46,7 @@
 								"type": "Expression"
 							},
 							"wildcardFileName": {
-								"value": "@split(variables('setoutputvariable'), '/')[length(split(variables('setoutputvariable'), '/'))-1]",
+								"value": "@split(variables('setoutputvariable'), '/')[sub(length(split(variables('setoutputvariable'), '/')), 1)]\n",
 								"type": "Expression"
 							},
 							"enablePartitionDiscovery": false
