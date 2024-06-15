@@ -47,7 +47,7 @@
 				"typeProperties": {
 					"variableName": "setoutputvariable",
 					"value": {
-						"value": "@activity('NotebookTask').output.runOutput\r\n",
+						"value": "abfss://destinationcontainer@adlsfinalstorage.dfs.core.windows.net/destinationdirectory/transformed_forestfire_data.csv",
 						"type": "Expression"
 					}
 				}
