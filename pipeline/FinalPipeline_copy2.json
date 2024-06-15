@@ -12,7 +12,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "setoutputvariable",
+					"variableName": "outputFilePath",
 					"value": {
 						"value": "abfss://destinationcontainer@adlsfinalstorage.dfs.core.windows.net/destinationdirectory/transformed_forestfire_data.csv",
 						"type": "Expression"
@@ -98,7 +98,7 @@
 			}
 		},
 		"variables": {
-			"setoutputvariable": {
+			"outputFilePath": {
 				"type": "String"
 			}
 		},
