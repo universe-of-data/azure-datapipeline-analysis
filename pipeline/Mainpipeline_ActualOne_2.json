@@ -90,25 +90,7 @@
 						},
 						"path": "destinationcontainer"
 					}
-				},
-				"inputs": [
-					{
-						"referenceName": "SourceDataset",
-						"type": "DatasetReference",
-						"parameters": {
-							"FilePath": {
-								"value": "@pipeline().parameters.inputFilePath\n",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "AzureSynapseAnalyticsTable1",
-						"type": "DatasetReference"
-					}
-				]
+				}
 			}
 		],
 		"parameters": {

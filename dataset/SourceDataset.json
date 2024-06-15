@@ -5,85 +5,18 @@
 			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"FilePath": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": {
-					"value": "@dataset().FilePath",
-					"type": "Expression"
-				},
-				"fileSystem": "sourcecontainer"
+				"fileSystem": "destinationcontainer"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": [
-			{
-				"name": "7.0",
-				"type": "String"
-			},
-			{
-				"name": "5.0",
-				"type": "String"
-			},
-			{
-				"name": "mar",
-				"type": "String"
-			},
-			{
-				"name": "fri",
-				"type": "String"
-			},
-			{
-				"name": "86.2",
-				"type": "String"
-			},
-			{
-				"name": "26.2",
-				"type": "String"
-			},
-			{
-				"name": "94.3",
-				"type": "String"
-			},
-			{
-				"name": "5.1",
-				"type": "String"
-			},
-			{
-				"name": "8.28",
-				"type": "String"
-			},
-			{
-				"name": "51.0",
-				"type": "String"
-			},
-			{
-				"name": "6.7",
-				"type": "String"
-			},
-			{
-				"name": "0.011",
-				"type": "String"
-			},
-			{
-				"name": "0.012",
-				"type": "String"
-			},
-			{
-				"name": "8.213",
-				"type": "String"
-			}
-		]
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+		"schema": []
+	}
 }

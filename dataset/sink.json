@@ -1,5 +1,5 @@
 {
-	"name": "name",
+	"name": "sink",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",
@@ -10,9 +10,9 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "transformed_final_data.csv",
-				"folderPath": "destinationdirectory",
-				"fileSystem": "destinationcontainer"
+				"fileName": "forestfires.csv",
+				"folderPath": "sourcedirectory",
+				"fileSystem": "sourcecontainer"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
@@ -71,12 +71,7 @@
 			{
 				"name": "area",
 				"type": "String"
-			},
-			{
-				"name": "temperature_celsius",
-				"type": "String"
 			}
 		]
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }
