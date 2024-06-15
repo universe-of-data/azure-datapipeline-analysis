@@ -62,11 +62,6 @@
 				]
 			}
 		],
-		"variables": {
-			"outputFilePath": {
-				"type": "String"
-			}
-		},
 		"annotations": []
 	}
 }
