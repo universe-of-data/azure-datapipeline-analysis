@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Set variable1",
+				"name": "SetOutputVariable",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"policy": {
@@ -24,7 +24,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "SetOutputVariable",
 						"dependencyConditions": [
 							"Succeeded"
 						]
