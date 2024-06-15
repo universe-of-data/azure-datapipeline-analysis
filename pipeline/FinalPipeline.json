@@ -90,7 +90,10 @@
 						"referenceName": "SourceDataset",
 						"type": "DatasetReference",
 						"parameters": {
-							"filePath": "@variables('outputFilePath')"
+							"filePath": {
+								"value": "@variables('setoutputvariable')",
+								"type": "Expression"
+							}
 						}
 					}
 				]
