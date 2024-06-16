@@ -140,10 +140,14 @@
 					"ifFalseActivities": [
 						{
 							"name": "Fail1",
-							"description": "This pipleline a",
+							"description": "This fail activity will fail the pipleline if the input file is not present",
 							"type": "Fail",
 							"dependsOn": [],
-							"userProperties": []
+							"userProperties": [],
+							"typeProperties": {
+								"message": "This pipleline as no inputfile",
+								"errorCode": "500"
+							}
 						}
 					]
 				}
