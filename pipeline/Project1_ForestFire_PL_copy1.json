@@ -36,7 +36,7 @@
 				}
 			},
 			{
-				"name": "Set variable1",
+				"name": "Get",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
@@ -64,7 +64,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "Get",
 						"dependencyConditions": [
 							"Succeeded"
 						]
