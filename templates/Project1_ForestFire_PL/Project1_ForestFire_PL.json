@@ -11,6 +11,9 @@
 		},
 		"AzureDataLakeStorage1": {
 			"type": "string"
+		},
+		"AzureSynapseAnalytics1": {
+			"type": "string"
 		}
 	},
 	"variables": {
@@ -18,15 +21,22 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/FinalPipeline')]",
+			"name": "[concat(parameters('factoryName'), '/Project1_ForestFire_PL')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "NotebookTask",
+						"name": "pysparkTransform",
 						"type": "DatabricksNotebook",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "VerifySourceFile",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -50,11 +60,11 @@
 						}
 					},
 					{
-						"name": "Set variable1",
+						"name": "Getoutputfile",
 						"type": "SetVariable",
 						"dependsOn": [
 							{
-								"activity": "NotebookTask",
+								"activity": "pysparkTransform",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -68,17 +78,18 @@
 						"typeProperties": {
 							"variableName": "setoutputvariable",
 							"value": {
-								"value": "@activity('NotebookTask').output.runOutput\r\n",
+								"value": "@activity('pysparkTransform').output.runOutput",
 								"type": "Expression"
 							}
 						}
 					},
 					{
-						"name": "CopyToFinal",
+						"name": "CopyToSynapse",
+						"description": "This activity will copy the transformed data from adls to synapse",
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "Set variable1",
+								"activity": "Getoutputfile",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -98,6 +109,14 @@
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
 									"recursive": true,
+									"wildcardFolderPath": {
+										"value": "@split(split(variables('setoutputvariable'), '@')[1], '/')[1]",
+										"type": "Expression"
+									},
+									"wildcardFileName": {
+										"value": "@split(variables('setoutputvariable'), '/')[sub(length(split(variables('setoutputvariable'), '/')), 1)]\n",
+										"type": "Expression"
+									},
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -105,16 +124,9 @@
 								}
 							},
 							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings",
-									"copyBehavior": "PreserveHierarchy"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
+								"type": "SqlDWSink",
+								"writeBehavior": "Insert",
+								"sqlWriterUseTableLock": false
 							},
 							"enableStaging": false,
 							"translator": {
@@ -129,21 +141,41 @@
 						"inputs": [
 							{
 								"referenceName": "SourceDataset",
-								"type": "DatasetReference",
-								"parameters": {
-									"filePath": {
-										"value": "@variables('setoutputvariable')",
-										"type": "Expression"
-									}
-								}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "sink",
+								"referenceName": "sinkDataset",
 								"type": "DatasetReference"
 							}
 						]
+					},
+					{
+						"name": "VerifySourceFile",
+						"description": "Verify if the source file is present or not in Azure Data Lake Storage ",
+						"type": "IfCondition",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@equals(pipeline().parameters.inputfilepath, pipeline().parameters.inputfilepath)",
+								"type": "Expression"
+							},
+							"ifFalseActivities": [
+								{
+									"name": "Fail1",
+									"description": "This fail activity will fail the pipleline if the input file is not present",
+									"type": "Fail",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"message": "This pipleline as no inputfile",
+										"errorCode": "500"
+									}
+								}
+							]
+						}
 					}
 				],
 				"parameters": {
@@ -160,7 +192,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SourceDataset')]",
-				"[concat(variables('factoryId'), '/datasets/sink')]"
+				"[concat(variables('factoryId'), '/datasets/sinkDataset')]"
 			]
 		},
 		{
@@ -172,20 +204,11 @@
 					"referenceName": "[parameters('AzureDataLakeStorage1')]",
 					"type": "LinkedServiceReference"
 				},
-				"parameters": {
-					"filePath": {
-						"type": "string"
-					}
-				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().filePath",
-							"type": "Expression"
-						},
 						"fileSystem": "destinationcontainer"
 					},
 					"columnDelimiter": ",",
@@ -198,82 +221,21 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/sink')]",
+			"name": "[concat(parameters('factoryName'), '/sinkDataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "[parameters('AzureDataLakeStorage1')]",
+					"referenceName": "[parameters('AzureSynapseAnalytics1')]",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"type": "DelimitedText",
+				"type": "AzureSqlDWTable",
+				"schema": [],
 				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "forestfires.csv",
-						"folderPath": "sourcedirectory",
-						"fileSystem": "sourcecontainer"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "X",
-						"type": "String"
-					},
-					{
-						"name": "Y",
-						"type": "String"
-					},
-					{
-						"name": "month",
-						"type": "String"
-					},
-					{
-						"name": "day",
-						"type": "String"
-					},
-					{
-						"name": "FFMC",
-						"type": "String"
-					},
-					{
-						"name": "DMC",
-						"type": "String"
-					},
-					{
-						"name": "DC",
-						"type": "String"
-					},
-					{
-						"name": "ISI",
-						"type": "String"
-					},
-					{
-						"name": "temp",
-						"type": "String"
-					},
-					{
-						"name": "RH",
-						"type": "String"
-					},
-					{
-						"name": "wind",
-						"type": "String"
-					},
-					{
-						"name": "rain",
-						"type": "String"
-					},
-					{
-						"name": "area",
-						"type": "String"
-					}
-				]
+					"schema": "dbo",
+					"table": "final_table"
+				}
 			},
 			"dependsOn": []
 		}

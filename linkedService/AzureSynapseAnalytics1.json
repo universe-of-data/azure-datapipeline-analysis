@@ -5,14 +5,13 @@
 		"annotations": [],
 		"type": "AzureSqlDW",
 		"typeProperties": {
-			"server": "rakswk.sql.azuresynapse.net",
-			"database": "dedicatedsqlpool",
+			"server": "synapseworkspacerakshitha.sql.azuresynapse.net",
+			"database": "rakshithadedicatedsqlpool",
 			"encrypt": "mandatory",
 			"trustServerCertificate": false,
-			"hostNameInCertificate": "",
 			"authenticationType": "SQL",
 			"userName": "sqladminuser",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDUxMUFBMDBCLTE2M0YtNDIwNC04MkNCLUU2OTM3MjVEODJEMF80MWI4ODY0NC1hMmY5LTQ5NTUtOWE5YS1mOTdiYjU4NzZlZjgiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDUxMUFBMDBCLTE2M0YtNDIwNC04MkNCLUU2OTM3MjVEODJEMF9mYTE1Zjk4OC01MDc4LTRmOGMtYTFiYy1kM2VhMWU2ODI4YzQiDQp9"
 		}
 	}
 }

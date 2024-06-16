@@ -1,11 +1,18 @@
 {
-	"name": "FinalPipeline",
+	"name": "Project1_ForestFire_PL",
 	"properties": {
 		"activities": [
 			{
-				"name": "NotebookTask",
+				"name": "pysparkTransform",
 				"type": "DatabricksNotebook",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "VerifySourceFile",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -29,11 +36,11 @@
 				}
 			},
 			{
-				"name": "Set variable1",
+				"name": "Getoutputfile",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
-						"activity": "NotebookTask",
+						"activity": "pysparkTransform",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -47,17 +54,18 @@
 				"typeProperties": {
 					"variableName": "setoutputvariable",
 					"value": {
-						"value": "@activity('NotebookTask').output.runOutput",
+						"value": "@activity('pysparkTransform').output.runOutput",
 						"type": "Expression"
 					}
 				}
 			},
 			{
-				"name": "CopyToFinal",
+				"name": "CopyToSynapse",
+				"description": "This activity will copy the transformed data from adls to synapse",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "Getoutputfile",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -92,16 +100,9 @@
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings",
-							"copyBehavior": "MergeFiles"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
-						}
+						"type": "SqlDWSink",
+						"writeBehavior": "Insert",
+						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -121,10 +122,36 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "sink",
+						"referenceName": "sinkDataset",
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "VerifySourceFile",
+				"description": "Verify if the source file is present or not in Azure Data Lake Storage ",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(pipeline().parameters.inputfilepath, pipeline().parameters.inputfilepath)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Fail1",
+							"description": "This fail activity will fail the pipleline if the input file is not present",
+							"type": "Fail",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"message": "This pipleline as no inputfile",
+								"errorCode": "500"
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
