@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "NotebookTask",
+				"name": "pysparkTransform",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
-						"activity": "VerifyFile",
+						"activity": "VerifySourceFile",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -36,11 +36,11 @@
 				}
 			},
 			{
-				"name": "Get",
+				"name": "Getoutputfile",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
-						"activity": "NotebookTask",
+						"activity": "pysparkTransform",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -64,7 +64,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Get",
+						"activity": "Getoutputfile",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -127,7 +127,7 @@
 				]
 			},
 			{
-				"name": "VerifyFile",
+				"name": "VerifySourceFile",
 				"description": "Verify if the source file is present or not in Azure Data Lake Storage ",
 				"type": "IfCondition",
 				"dependsOn": [],
