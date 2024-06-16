@@ -131,13 +131,7 @@
 				"description": "Verify if the source file is present or not in Azure Data Lake Storage ",
 				"type": "IfCondition",
 				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "true",
-						"type": "Expression"
-					}
-				}
+				"userProperties": []
 			},
 			{
 				"name": "Get Metadata1",
@@ -150,7 +144,10 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"fieldList": []
+				}
 			}
 		],
 		"parameters": {
