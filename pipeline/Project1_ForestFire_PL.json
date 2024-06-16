@@ -54,7 +54,7 @@
 				"typeProperties": {
 					"variableName": "setoutputvariable",
 					"value": {
-						"value": "@activity('NotebookTask').output.runOutput",
+						"value": "@activity('pysparkTransform').output.runOutput",
 						"type": "Expression"
 					}
 				}
