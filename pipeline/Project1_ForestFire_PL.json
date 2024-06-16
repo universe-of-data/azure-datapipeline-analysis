@@ -5,7 +5,14 @@
 			{
 				"name": "NotebookTask",
 				"type": "DatabricksNotebook",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "VerifyFile",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -118,6 +125,12 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "VerifyFile",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": []
 			}
 		],
 		"parameters": {
