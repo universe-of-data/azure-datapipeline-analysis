@@ -1,0 +1,27 @@
+{
+	"name": "TriggerDaily",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Project1_ForestFire_PL",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"inputfilepath": "abfs://sourcecontainer@adlsfinalstorage.dfs.core.windows.net/sourcedirectory/forestfires.csv\n"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2024-06-17T19:00:00",
+				"timeZone": "Eastern Standard Time"
+			}
+		}
+	}
+}
