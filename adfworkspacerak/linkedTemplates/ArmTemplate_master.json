@@ -47,6 +47,10 @@
 			"type": "string",
 			"defaultValue": "sqladminuser"
 		},
+		"TriggerDaily_properties_Project1_ForestFire_PL_parameters_inputfilepath": {
+			"type": "string",
+			"defaultValue": "abfs://sourcecontainer@adlsfinalstorage.dfs.core.windows.net/sourcedirectory/forestfires.csv\n"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -103,6 +107,9 @@
 					},
 					"AzureSynapseAnalytics1_properties_typeProperties_userName": {
 						"value": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_userName')]"
+					},
+					"TriggerDaily_properties_Project1_ForestFire_PL_parameters_inputfilepath": {
+						"value": "[parameters('TriggerDaily_properties_Project1_ForestFire_PL_parameters_inputfilepath')]"
 					}
 				}
 			},

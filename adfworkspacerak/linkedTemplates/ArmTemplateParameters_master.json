@@ -35,6 +35,9 @@
 		"AzureSynapseAnalytics1_properties_typeProperties_userName": {
 			"value": "sqladminuser"
 		},
+		"TriggerDaily_properties_Project1_ForestFire_PL_parameters_inputfilepath": {
+			"value": "abfs://sourcecontainer@adlsfinalstorage.dfs.core.windows.net/sourcedirectory/forestfires.csv\n"
+		},
 		"containerUri": {
 			"value": ""
 		},
