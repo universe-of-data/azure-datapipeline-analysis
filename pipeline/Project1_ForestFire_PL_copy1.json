@@ -131,7 +131,22 @@
 				"description": "Verify if the source file is present or not in Azure Data Lake Storage ",
 				"type": "IfCondition",
 				"dependsOn": [],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(pipeline().parameters.inputfilepath, pipeline().parameters.inputfilepath)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Fail1",
+							"description": "This pipleline a",
+							"type": "Fail",
+							"dependsOn": [],
+							"userProperties": []
+						}
+					]
+				}
 			},
 			{
 				"name": "Get Metadata1",
