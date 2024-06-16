@@ -128,9 +128,16 @@
 			},
 			{
 				"name": "VerifyFile",
+				"description": "Verify if the source file is present or not in Azure Data Lake Storage ",
 				"type": "IfCondition",
 				"dependsOn": [],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "true",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
