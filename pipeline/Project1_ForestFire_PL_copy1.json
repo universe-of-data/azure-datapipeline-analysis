@@ -1,0 +1,168 @@
+{
+	"name": "Project1_ForestFire_PL_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "NotebookTask",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "VerifyFile",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/keerthanaakkula@gmail.com/LogicTransformation.py",
+					"baseParameters": {
+						"csvpath": {
+							"value": "@pipeline().parameters.inputfilepath",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "NotebookTask",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "setoutputvariable",
+					"value": {
+						"value": "@activity('NotebookTask').output.runOutput",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "CopyToFinal",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": {
+								"value": "@split(split(variables('setoutputvariable'), '@')[1], '/')[1]",
+								"type": "Expression"
+							},
+							"wildcardFileName": {
+								"value": "@split(variables('setoutputvariable'), '/')[sub(length(split(variables('setoutputvariable'), '/')), 1)]\n",
+								"type": "Expression"
+							},
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"writeBehavior": "Insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "sinkDataset",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "VerifyFile",
+				"description": "Verify if the source file is present or not in Azure Data Lake Storage ",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "true",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Get Metadata1",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
+			}
+		],
+		"parameters": {
+			"inputfilepath": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"setoutputvariable": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
