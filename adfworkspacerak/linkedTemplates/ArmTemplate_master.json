@@ -1,0 +1,112 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adfworkspacerak"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+		},
+		"AzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
+		},
+		"AzureSynapseAnalytics1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSynapseAnalytics1'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsfinalstorage.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlssourcestorage.dfs.core.windows.net/"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0611-211130-95ddiu9r"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "synapseworkspacerakshitha.sql.azuresynapse.net"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "rakshithadedicatedsqlpool"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladminuser"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adfworkspacerak_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
+					"AzureDataLakeStorage2_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
+					},
+					"AzureDatabricks1_accessToken": {
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
+					},
+					"AzureSynapseAnalytics1_password": {
+						"value": "[parameters('AzureSynapseAnalytics1_password')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage2_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]"
+					},
+					"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
+					},
+					"AzureSynapseAnalytics1_properties_typeProperties_server": {
+						"value": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_server')]"
+					},
+					"AzureSynapseAnalytics1_properties_typeProperties_database": {
+						"value": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_database')]"
+					},
+					"AzureSynapseAnalytics1_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adfworkspacerak"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
+		"AzureSynapseAnalytics1_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://adlsfinalstorage.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"value": "https://adlssourcestorage.dfs.core.windows.net/"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0611-211130-95ddiu9r"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_server": {
+			"value": "synapseworkspacerakshitha.sql.azuresynapse.net"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_database": {
+			"value": "rakshithadedicatedsqlpool"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_userName": {
+			"value": "sqladminuser"
+		}
+	}
+}
