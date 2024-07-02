@@ -1,7 +1,7 @@
 # Open Source Data Set Analysis and Pipeline Creation
 
 ## Overview
-This project involves analyzing a dataset from the UCI Machine Learning Repository related to forest fires in Portugal, predicting burned areas. The goal is to create a data pipeline using Azure services, perform data cleaning and transformation using PySpark in Databricks, analyze the transformed data in Azure Synapse Analytics, and visualize insights using Power BI.
+This project involves analyzing a dataset from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Forest+Fires) related to forest fires in Portugal, predicting burned areas. The goal is to create a data pipeline using Azure services, perform data cleaning and transformation using PySpark in Databricks, analyze the transformed data in Azure Synapse Analytics, and visualize insights using Power BI.
 
 ## Table of Contents
 1. [Finding and Analyzing Data](#finding-and-analyzing-data)
@@ -42,6 +42,8 @@ This project involves analyzing a dataset from the UCI Machine Learning Reposito
 - **Azure Databricks:** Executes PySpark scripts for data transformations.
 - **Azure Synapse Analytics:** Analyzes cleaned data using SQL queries.
 - **Power BI:** Visualizes analysis results with interactive dashboards.
+![image](https://github.com/universe-of-data/azure-datapipeline-analysis/assets/74275658/2b748a26-ae84-4b1a-a205-ccc256541365)
+![image](https://github.com/universe-of-data/azure-datapipeline-analysis/assets/74275658/c5c02502-daec-4156-a126-fb51ca7ec792)
 
 ## Data Pipeline Creation
 ### Steps Taken
